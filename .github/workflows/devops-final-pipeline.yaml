@@ -10,8 +10,7 @@ jobs:
       - name: ansible-lint
         uses: ansible/ansible-lint-action@master
         with:
-          targets: ansible
-          override-deps: ansible==2.9      
+          targets: ansible   
 
 
   Terraform-validate:
@@ -24,10 +23,3 @@ jobs:
         uses: dflook/terraform-validate@v1.4.1
         with:
           path: terraform-ec2
-
-  #Docker-build:
-  #  runs-on: ubuntu-latest
-  #
-  #  steps:
-  #    - uses: actions/checkout@v2
-  #    - run: docker build -t web-image . --file Dockerfile

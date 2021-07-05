@@ -4,9 +4,12 @@ jobs:
 
   Docker-build:
     runs-on: ubuntu-latest
+
     steps:
       - uses: actions/checkout@v2
-      - run: docker build -t test-image . --file ansible/files/Dockerfile
+      - name: docker-build
+        working-directory: ansible/files/
+        run: docker build -t test-image . --file Dockerfile
 
   Ansible-lint:
     runs-on: ubuntu-latest
@@ -23,8 +26,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v2     
-          
+      - uses: actions/checkout@v2               
       - name: terraform-validate
         uses: dflook/terraform-validate@v1.4.1
         with:

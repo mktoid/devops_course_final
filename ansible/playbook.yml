@@ -20,12 +20,12 @@
         dest: /var/www/html/index.html
         mode: 0644
     
-    - name: Update nginx config
-      copy: 
-        src: nginx.conf 
-        dest: /etc/nginx/sites-enabled/default
-        mode: 0644  
-      notify: restart nginx
+    #- name: Update nginx config
+    #  copy: 
+    #    src: nginx.conf 
+    #    dest: /etc/nginx/sites-enabled/default
+    #    mode: 0644  
+    #  notify: restart nginx
 
   handlers:
     - name: restart nginx

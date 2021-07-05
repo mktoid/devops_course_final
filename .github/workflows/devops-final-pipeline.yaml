@@ -1,12 +1,12 @@
 name: Devops Final Pipeline
 on: push
 jobs:
-  #Docker-build:
-  #  runs-on: ubuntu-latest
-  #
-  #  steps:
-  #    - uses: actions/checkout@v2
-  #git    - run: docker build -t web-image . --file Dockerfile
+  Docker-build:
+    runs-on: ubuntu-latest
+  
+    steps:
+      - uses: actions/checkout@v2
+      - run: docker build -t web-image . --file Dockerfile
 
   validate:
     runs-on: ubuntu-latest
@@ -14,11 +14,11 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - name: ansible-lint
-        uses: ansible/ansible-lint-action@master
-        with:
-          targets: ansible
-          override-deps: ansible==2.9        
+      #- name: ansible-lint
+      #  uses: ansible/ansible-lint-action@master
+      #  with:
+      #    targets: ansible
+      #    override-deps: ansible==2.9        
           
       - name: terraform-validate
         uses: dflook/terraform-validate@v1.4.1

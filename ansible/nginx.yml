@@ -1,12 +1,14 @@
 ---
-- hosts: webserver
-  become: no
+- name: Run nginx in Docker
+  hosts: webserver
+  become: yes
   tasks:
-    - name: Install docker and some dependencies
+
+    - name: Install docker and dependencies
       apt:
         name:
-          - docker.io
           - python3-docker
+          - docker.io
         update_cache: yes
 
     - name: Start docker service
@@ -18,23 +20,26 @@
       pip:
         name: docker
 
-    - name: Build an image and push
-      docker_image:
-        build:
-          path: ./files
-        name: mktoid/nginx
-        tag: v1
-        force_source: yes
-        push: yes
-        source: build
-      delegate_to: 127.0.0.1
-      become: no
+    - name: Make build directory
+      file:
+        path: "build/"
+        state: directory
+        mode: 0755
 
-    - name: Create nginx container
+    - name: Move files to build directory
+      copy:
+        src: files/
+        dest: "build/"
+        mode: 0644
+
+    - name: Build Docker image
+      command: docker build -t "web" "build/"
+
+    - name: Run Docker container
       docker_container:
-        name: nginx
-        image: mktoid/nginx:v1
+        name: "web-container"
+        image: "web"
         state: started
         recreate: yes
         published_ports:
-          - "{{ nginx_port }}:{{ nginx_port }}"
+          - "80:80"

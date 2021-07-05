@@ -1,14 +1,8 @@
 name: Devops Final Pipeline
 on: push
 jobs:
-  Docker-build:
-    runs-on: ubuntu-latest
-  
-    steps:
-      - uses: actions/checkout@v2
-      - run: docker build -t web-image . --file Dockerfile
 
-  validate:
+  Terraform validate:
     runs-on: ubuntu-latest
 
     steps:
@@ -24,3 +18,10 @@ jobs:
         uses: dflook/terraform-validate@v1.4.1
         with:
           path: terraform-ec2
+
+  Docker build:
+    runs-on: ubuntu-latest
+  
+    steps:
+      - uses: actions/checkout@v2
+      - run: docker build -t web-image . --file Dockerfile

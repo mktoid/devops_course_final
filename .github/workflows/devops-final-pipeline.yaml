@@ -2,7 +2,7 @@ name: Devops Final Pipeline
 on: push
 jobs:
 
-  Terraform validate:
+  Terraform-validate:
     runs-on: ubuntu-latest
 
     steps:
@@ -19,7 +19,7 @@ jobs:
         with:
           path: terraform-ec2
 
-  Docker build:
+  Docker-build:
     runs-on: ubuntu-latest
   
     steps:

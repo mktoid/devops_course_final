@@ -2,6 +2,12 @@ name: Devops Final Pipeline
 on: push
 jobs:
 
+  Docker-build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: docker build -t test-image . --file ansible/files/Dockerfile
+
   Ansible-lint:
     runs-on: ubuntu-latest
 

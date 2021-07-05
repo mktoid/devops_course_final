@@ -7,7 +7,6 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
-
       #- name: ansible-lint
       #  uses: ansible/ansible-lint-action@master
       #  with:

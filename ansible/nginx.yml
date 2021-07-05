@@ -1,0 +1,40 @@
+---
+- hosts: webserver
+  become: no
+  tasks:
+    - name: Install docker and some dependencies
+      apt:
+        name:
+          - docker.io
+          - python3-docker
+        update_cache: yes
+
+    - name: Start docker service
+      service:
+        name: docker
+        state: started
+
+    - name: Install docker python module
+      pip:
+        name: docker
+
+    - name: Build an image and push
+      docker_image:
+        build:
+          path: ./files
+        name: mktoid/nginx
+        tag: v1
+        force_source: yes
+        push: yes
+        source: build
+      delegate_to: 127.0.0.1
+      become: no
+
+    - name: Create nginx container
+      docker_container:
+        name: nginx
+        image: mktoid/nginx:v1
+        state: started
+        recreate: yes
+        published_ports:
+          - "{{ nginx_port }}:{{ nginx_port }}"

@@ -11,8 +11,7 @@ terraform {
 
 provider "aws" {
   region = "eu-west-2"
-  access_key = " *** REMOVED *** "
-  secret_key = " *** REMOVED *** "
+  profile = "default"
 }
 
 module "vpc" {

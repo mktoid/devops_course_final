@@ -1,4 +1,6 @@
 **/.aws/*
+id_rsa
+id_rsa.* 
 
 # Local .terraform directories
 **/.terraform/*
